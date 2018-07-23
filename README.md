@@ -8,5 +8,5 @@ distribute key-value database
 
 ## Plan
 ### Week1
-- [ ] Consistency Hash Algorithm
+- [x] Consistency Hash Algorithm
 - [ ] High Level Architecture

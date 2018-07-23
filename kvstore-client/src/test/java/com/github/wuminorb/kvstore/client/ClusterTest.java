@@ -4,6 +4,8 @@ import com.github.wuminorb.kvstore.client.util.Address;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Random;
+
 import static org.junit.Assert.*;
 
 public class ClusterTest {
@@ -60,5 +62,29 @@ public class ClusterTest {
 
         assertEquals(2, newSize);
         assertEquals(2 * numberOfReplicas, newPartitionNum);
+    }
+
+    @Test
+    public void testFind() {
+        cluster.addNode(new Address("127.0.0.2", 10000));
+        cluster.addNode(new Address("127.0.0.3", 10000));
+        cluster.addNode(new Address("127.0.0.4", 10000));
+
+        int key = new Random().nextInt();
+
+        Address server0 = cluster.find(key);
+
+        cluster.addNode(new Address("127.0.0.5", 10000));
+        cluster.addNode(new Address("127.0.0.6", 10000));
+
+        Address server1 = cluster.find(key);
+        assertEquals(server1, server0);
+
+        System.out.println(server0);
+
+        cluster.removeNode(server0);
+        Address server2 = cluster.find(key);
+        System.out.println(server2);
+        assertNotEquals(server2, server0);
     }
 }

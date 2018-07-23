@@ -74,4 +74,22 @@ public class Cluster<T> {
         LOGGER.debug("{}", hotSpot);
         return new DescriptiveStatistics(hotSpot).getStandardDeviation();
     }
+
+    /**
+     * find response node for the hash key.
+     *
+     * @param key hash key
+     * @return response node. if cluster has none node, return null.
+     */
+    public T find(int key) {
+        Map.Entry<Integer, T> entry = circle.ceilingEntry(key);
+        if (entry != null) {
+            return entry.getValue();
+        } else {
+            Map.Entry<Integer, T> firstEntry = circle.firstEntry();
+            if (firstEntry == null)
+                return null;
+            return firstEntry.getValue();
+        }
+    }
 }

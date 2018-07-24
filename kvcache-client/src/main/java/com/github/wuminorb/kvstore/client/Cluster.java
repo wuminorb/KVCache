@@ -1,4 +1,4 @@
-package com.github.wuminorb.kvstore.client;
+package com.github.wuminorb.kvcache.client;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.slf4j.Logger;

@@ -1,6 +1,6 @@
-package com.github.wuminorb.kvstore.client;
+package com.github.wuminorb.kvcache.client;
 
-import com.github.wuminorb.kvstore.client.util.Address;
+import com.github.wuminorb.kvcache.client.util.Address;
 import org.junit.Before;
 import org.junit.Test;
 

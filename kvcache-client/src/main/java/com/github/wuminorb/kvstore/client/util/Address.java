@@ -1,4 +1,4 @@
-package com.github.wuminorb.kvstore.client.util;
+package com.github.wuminorb.kvcache.client.util;
 
 import java.util.Objects;
 

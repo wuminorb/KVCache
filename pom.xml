@@ -1,14 +1,14 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.wuminorb.kvstore</groupId>
-    <artifactId>kvstore-parent</artifactId>
+    <groupId>com.github.wuminorb.kvcache</groupId>
+    <artifactId>kvcache-parent</artifactId>
     <version>0.1.0</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>kvstore-common</module>
-        <module>kvstore-server</module>
-        <module>kvstore-client</module>
+        <module>kvcache-common</module>
+        <module>kvcache-server</module>
+        <module>kvcache-client</module>
     </modules>
 
     <properties>

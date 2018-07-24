@@ -1,11 +1,11 @@
 <project>
     <parent>
-        <groupId>com.github.wuminorb.kvstore</groupId>
-        <artifactId>kvstore-parent</artifactId>
+        <groupId>com.github.wuminorb.kvcache</groupId>
+        <artifactId>kvcache-parent</artifactId>
         <version>0.1.0</version>
     </parent>
 
-    <artifactId>kvstore-server</artifactId>
+    <artifactId>kvcache-server</artifactId>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
 </project>

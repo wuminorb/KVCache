@@ -1,5 +1,5 @@
-# KVStore
-distribute key-value database
+# KVCache
+distribute key-value memory cache
 
 ## Features
 - [ ] distribution

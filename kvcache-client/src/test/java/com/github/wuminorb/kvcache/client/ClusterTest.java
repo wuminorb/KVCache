@@ -72,18 +72,18 @@ public class ClusterTest {
 
         int key = new Random().nextInt();
 
-        Address server0 = cluster.find(key);
+        Address server0 = cluster.find(Integer.toString(key));
 
         cluster.addNode(new Address("127.0.0.5", 10000));
         cluster.addNode(new Address("127.0.0.6", 10000));
 
-        Address server1 = cluster.find(key);
+        Address server1 = cluster.find(Integer.toString(key));
         assertEquals(server1, server0);
 
         System.out.println(server0);
 
         cluster.removeNode(server0);
-        Address server2 = cluster.find(key);
+        Address server2 = cluster.find(Integer.toString(key));
         System.out.println(server2);
         assertNotEquals(server2, server0);
     }

@@ -3,8 +3,9 @@ distribute key-value memory cache
 
 ## Features
 - [ ] distribution
-- [ ] String key, String value
-- [ ] client-server Architecture
+- [x] String key, String value
+- [x] client-server Architecture
+- [x] Can be used as ordinary map 
 
 ## Document
 [High Level Architecture](doc/high_level_architecture.md)

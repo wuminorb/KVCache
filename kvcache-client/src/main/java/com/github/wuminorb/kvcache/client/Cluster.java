@@ -4,6 +4,9 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -16,6 +19,8 @@ public class Cluster<T> {
     private final Map<T, Set<Integer>> nodes = new ConcurrentHashMap<>();
     private final NavigableMap<Integer, T> circle = new ConcurrentSkipListMap<>();
 
+    private final ThreadLocal<MessageDigest> md5 = new ThreadLocal<>();
+
     public Cluster(int numberOfReplicas) {
         this.numberOfReplicas = numberOfReplicas;
     }
@@ -27,7 +32,7 @@ public class Cluster<T> {
 
         Set<Integer> keySet = new HashSet<>();
         for (int i = 0, num = 0; num < numberOfReplicas; i++) {
-            int key = hash(node.toString() + i);
+            int key = hashNode(node, i);
             if (!circle.containsKey(key)) {
                 circle.put(key, node);
                 keySet.add(key);
@@ -50,8 +55,30 @@ public class Cluster<T> {
         nodes.remove(node);
     }
 
+    private int hashNode(T node, int replicasNum) {
+        return new StringBuilder(node.toString() + replicasNum).reverse().toString().hashCode();
+    }
+
     private int hash(String s) {
-        return new StringBuilder(s).reverse().toString().hashCode();
+        MessageDigest m = md5.get();
+
+        if (m == null) {
+            try {
+                m = MessageDigest.getInstance("MD5");
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+            md5.set(m);
+        }
+
+        m.reset();
+        m.update(s.getBytes());
+        byte[] bytes = m.digest();
+
+        return (bytes[0] & 0xFF)
+                | ((bytes[1] & 0xFF) << 8)
+                | ((bytes[2] & 0xFF) << 16)
+                | ((bytes[3] & 0xFF) << 24);
     }
 
     public int size() {
@@ -81,8 +108,13 @@ public class Cluster<T> {
      * @param key hash key
      * @return response node. if cluster has none node, return null.
      */
-    public T find(int key) {
-        Map.Entry<Integer, T> entry = circle.ceilingEntry(key);
+    public T find(String key) {
+        if (key == null || "".endsWith(key)) {
+            return null;
+        }
+
+        int hash = hash(key);
+        Map.Entry<Integer, T> entry = circle.ceilingEntry(hash);
         if (entry != null) {
             return entry.getValue();
         } else {

@@ -1,0 +1,1 @@
+![High Level Architecture](img/high_level_architecture.png)

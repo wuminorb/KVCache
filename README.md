@@ -9,4 +9,4 @@ distribute key-value memory cache
 ## Plan
 ### Week1
 - [x] Consistency Hash Algorithm
-- [ ] High Level Architecture
+- [x] High Level Architecture

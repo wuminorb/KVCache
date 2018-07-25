@@ -1,6 +1,7 @@
 package com.github.wuminorb.kvcache.server;
 
 import com.github.wuminorb.kvcache.KVCacheService;
+import com.github.wuminorb.kvcache.Value;
 import org.apache.thrift.TException;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TThreadPoolServer;
@@ -57,8 +58,8 @@ public class KVCacheServer implements KVCacheService.Iface, Closeable {
     }
 
     @Override
-    public String get(String key) throws TException {
-        return data.get(key);
+    public Value get(String key) throws TException {
+        return new Value().setValue(data.get(key));
     }
 
     @Override

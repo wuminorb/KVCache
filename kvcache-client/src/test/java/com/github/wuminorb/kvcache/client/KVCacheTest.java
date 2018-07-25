@@ -30,6 +30,15 @@ public class KVCacheTest {
 
     @Test
     public void testGet() {
+        assertEquals(null, cache.get("a"));
 
+        cache.put("a", "b");
+        assertEquals("b", cache.get("a"));
+
+        cache.put("a", "c");
+        assertEquals("c", cache.get("a"));
+
+        cache.put("a", null);
+        assertEquals(null, cache.get("a"));
     }
 }

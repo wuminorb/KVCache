@@ -48,7 +48,7 @@ public class Connector {
     public static String get(Address address, String key) {
         try {
             KVCacheService.Client client = getClient(address);
-            return client.get(key);
+            return client.get(key).getValue();
         } catch (TException e) {
             throw new RuntimeException(e);
         }

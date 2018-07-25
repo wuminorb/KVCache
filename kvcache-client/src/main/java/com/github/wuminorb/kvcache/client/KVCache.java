@@ -6,16 +6,25 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-public class KVCache implements Map<String, String>{
+public class KVCache implements Map<String, String> {
     private final Cluster<Address> cluster = new Cluster<>(100);
 
-    public KVCache() {
-
+    public KVCache(Address... servers) {
+        for (Address server : servers) {
+            cluster.addNode(server);
+        }
     }
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        Collection<Address> addresses = cluster.getAllNodes();
+        int size = 0;
+
+        for (Address address : addresses) {
+            size += Connector.count(address);
+        }
+
+        return size;
     }
 
     @Override
@@ -35,11 +44,18 @@ public class KVCache implements Map<String, String>{
 
     @Override
     public String get(Object key) {
-        return null;
+        if (key == null) {
+            return null;
+        }
+
+        Address server = cluster.find((String) key);
+        return Connector.get(server, (String) key);
     }
 
-    /** Both the key and the value can be null.If the value is null, it will expiration the key. If the key is null, it will do nothing.
-     * @param key the cache key
+    /**
+     * Both the key and the value can be null.If the value is null, it will expiration the key. If the key is null, it will do nothing.
+     *
+     * @param key   the cache key
      * @param value the cache value
      * @return the value
      */
@@ -51,17 +67,23 @@ public class KVCache implements Map<String, String>{
 
         if (value == null) {
             remove(key);
-            return value;
+            return null;
         }
 
         Address server = cluster.find(key);
+        Connector.push(server, key, value);
 
         return value;
     }
 
     @Override
     public String remove(Object key) {
-        return null;
+        if (key == null) {
+            return null;
+        }
+
+        Address server = cluster.find((String) key);
+        return Connector.invalidate(server, (String) key);
     }
 
     @Override

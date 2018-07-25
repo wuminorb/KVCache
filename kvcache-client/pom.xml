@@ -11,14 +11,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.25</version>
+            <groupId>com.github.wuminorb.kvcache</groupId>
+            <artifactId>kvcache-common</artifactId>
+            <version>0.1.0</version>
         </dependency>
 
         <dependency>

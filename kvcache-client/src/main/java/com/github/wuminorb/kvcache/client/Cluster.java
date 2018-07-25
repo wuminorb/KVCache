@@ -1,5 +1,6 @@
 package com.github.wuminorb.kvcache.client;
 
+import com.github.wuminorb.kvcache.client.util.Address;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -123,5 +124,9 @@ public class Cluster<T> {
                 return null;
             return firstEntry.getValue();
         }
+    }
+
+    public Collection<T> getAllNodes() {
+        return nodes.keySet();
     }
 }

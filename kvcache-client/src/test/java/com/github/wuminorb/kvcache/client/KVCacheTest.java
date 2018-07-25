@@ -1,5 +1,6 @@
 package com.github.wuminorb.kvcache.client;
 
+import com.github.wuminorb.kvcache.client.util.Address;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +11,7 @@ public class KVCacheTest {
 
     @Before
     public void testInit() {
-        cache = new KVCache();
+        cache = new KVCache(new Address("127.0.0.1", 10000));
     }
 
     @Test

@@ -14,3 +14,6 @@ distribute key-value memory cache
 ### Week1
 - [x] Consistency Hash Algorithm
 - [x] High Level Architecture
+
+### Week2
+- [x] Use Apache thrift to communication

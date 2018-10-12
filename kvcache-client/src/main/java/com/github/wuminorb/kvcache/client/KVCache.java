@@ -88,7 +88,9 @@ public class KVCache implements Map<String, String> {
 
     @Override
     public void putAll(Map<? extends String, ? extends String> m) {
-
+        for (Entry<? extends String, ? extends String> entry : m.entrySet()) {
+            put(entry.getKey(), entry.getValue());
+        }
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.github.wuminorb.kvcache.client;
 import com.github.wuminorb.kvcache.client.util.Address;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -53,7 +54,7 @@ public class KVCache implements Map<String, String> {
     }
 
     /**
-     * Both the key and the value can be null.If the value is null, it will expiration the key. If the key is null, it will do nothing.
+     * If the value is null, it will expiration the key. If the key is null, will throw null point exception.
      *
      * @param key   the cache key
      * @param value the cache value
@@ -62,9 +63,8 @@ public class KVCache implements Map<String, String> {
     @Override
     public String put(String key, String value) {
         if (key == null) {
-            return value;
+            throw new NullPointerException("can't put null key, value:" + value);
         }
-
         if (value == null) {
             remove(key);
             return null;

@@ -22,23 +22,26 @@ public class KVCacheTest {
         cache.put("c", "d");
         cache.put("e", "f");
         cache.put("e", null);
-        cache.put(null, "f");
-        cache.put(null, null);
 
         assertEquals(2, cache.size());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testPutNullKey() {
+        cache.put(null, "f");
+    }
+
     @Test
     public void testGet() {
-        assertEquals(null, cache.get("a"));
+        assertEquals(null, cache.get("a-get"));
 
-        cache.put("a", "b");
-        assertEquals("b", cache.get("a"));
+        cache.put("a-get", "b");
+        assertEquals("b", cache.get("a-get"));
 
-        cache.put("a", "c");
-        assertEquals("c", cache.get("a"));
+        cache.put("a-get", "c");
+        assertEquals("c", cache.get("a-get"));
 
-        cache.put("a", null);
-        assertEquals(null, cache.get("a"));
+        cache.put("a-get", null);
+        assertEquals(null, cache.get("a-get"));
     }
 }
